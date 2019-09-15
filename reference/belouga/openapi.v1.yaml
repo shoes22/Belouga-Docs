@@ -7,6 +7,7 @@ info:
   contact:
     name: Alex Mathews
     email: alex@belouga.org
+    url: 'https://belouga.org'
   description: List of publicly available endpoints for Belouga
 servers:
   - url: 'https://belouga.org/api'
