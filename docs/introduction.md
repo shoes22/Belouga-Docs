@@ -7,5 +7,5 @@ In this documentation you will find out how to generate valid requests to the Be
 You can find a PASETO library for your platform [HERE](https://paseto.io/).
 
 ## Pages
-- ** [Token Requirements](./requirements.md) ** Documentation on how to generate signed PASETO tokens that are valid for Belouga. 
-- ** [Registration Request Lifecycle](./requirements.md) ** The request flow of API calls when registering a user.
+- ** [Token Requirements](docs/requirements.md) ** Documentation on how to generate signed PASETO tokens that are valid for Belouga. 
+- ** [Registration Request Lifecycle](docs/request-cycle-for-registration.md) ** The request flow of API calls when registering a user.
