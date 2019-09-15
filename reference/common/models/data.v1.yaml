@@ -1,0 +1,12 @@
+title: Data
+description: Will retreieve JSON encoded object on success.
+oneOf:
+  - type: object
+    description: 'If success and validation endpoint, this object will be returned.'
+    properties:
+      valid:
+        type: boolean
+        description: 'Returns true if data submitted is valid/unique, false otherwise.'
+  - type: array
+    description: 'If success and a retrieval endpoint, the requested data will be found here.'
+    items: {}

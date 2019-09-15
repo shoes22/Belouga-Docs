@@ -1,0 +1,72 @@
+title: Teacher User Object
+description: User object submitted for teacher registration
+type: object
+properties:
+  type:
+    description: 'This is a string that determines whether this is a student or teacher account. Only valid value right now is "Teacher".'
+    type: string
+  new-user-type:
+    type: integer
+    description: 'This corresponds to the specific permission group in our system. Whether teacher, headmaster, superintendent, tech integrator, etc.'
+  new-user-state:
+    type: integer
+    description: This integer corresponds to a specific state ID in our database.
+  new-user-country:
+    type: string
+    description: 'This field corresponds to a specific ID in our database. '
+  teacher-is-existing-school:
+    type: boolean
+    description: This is a flag that states whether the teacher is signing up to an existing school or district on Belouga.
+  teacher-is-district:
+    type: boolean
+    description: This is a flag that says whether the user is signing up as a district account or not.
+  new-user-school-name:
+    type:
+      - string
+      - number
+    description: 'If existing ID, it corresponds to an existing school/district ID in our database, if it exists. Otherwise string value of new school name.'
+  new-user-address:
+    type: string
+    description: This field is only required if the school is new and does not exist in the database.
+  new-user-city:
+    type: string
+    description: This field is only required if the school is new and does not exist in the database.
+  new-user-postal-code:
+    type: string
+    description: This field is only required if the school is new and does not exist in the database.
+  teacher-first-name:
+    type: string
+  teacher-last-name:
+    type: string
+  teacher-displayname:
+    type: string
+    description: The name the teacher will be referred to by students on Belouga
+  teacher-username:
+    type: string
+    description: Must be unique.
+  teacher-email:
+    type: string
+    description: Must be unique.
+  teacher-password:
+    type: string
+    description: 'The plaintext unencrypted password. Plaintext here because we will be encrypting the password in our own database, and this data is transmitted encrypted to our servers.'
+  teacher-confirm-password:
+    type: string
+    description: 'It is expected that you will check this field client-side before submitting. Required on registration form, but not required to be submitted.'
+  teacher-accept-tos:
+    type: boolean
+    description: Whether the user accepts the terms and conditions. This field must be true for the registration to be accepted.
+required:
+  - type
+  - new-user-type
+  - new-user-state
+  - teacher-is-existing-school
+  - teacher-is-district
+  - new-user-school-name
+  - teacher-first-name
+  - teacher-last-name
+  - teacher-displayname
+  - teacher-username
+  - teacher-email
+  - teacher-password
+  - teacher-accept-tos

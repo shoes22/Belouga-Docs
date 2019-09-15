@@ -1,0 +1,13 @@
+title: Return Object
+type: object
+properties:
+  success:
+    type: boolean
+    description: Whether the request was successful.
+  errorMsg:
+    type: string
+    description: 'Will retrieve error message on error, or when success equals false.'
+  data:
+    $ref: ./data.v1.yaml
+required:
+  - success

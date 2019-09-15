@@ -1,0 +1,203 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Belouga API
+  license:
+    name: MIT
+  contact:
+    name: Alex Mathews
+    email: alex@belouga.org
+  description: List of publicly available endpoints for Belouga
+servers:
+  - url: 'https://belouga.org/api'
+    description: Belouga Prod
+paths:
+  /getCountryCodes:
+    get:
+      summary: Get Country Codes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/return-object.v1.yaml
+      description: Get list of available 2-letter ISO-encoded country abbreviations from the Belouga database. You will need this to retrieve state and school information.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: PASETO Token
+          required: true
+      tags:
+        - retrieval
+    parameters: []
+  '/getStatesByCountryCode/{countryCode}':
+    get:
+      summary: Get States by Country Code
+      tags:
+        - retrieval
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/return-object.v1.yaml
+      parameters:
+        - schema:
+            type: string
+          in: header
+          description: PASETO Token
+          name: Authorization
+          required: true
+      description: 'Get list of states/regions within country from country code, retrieved from getCountryCodes API endpoint.'
+    parameters:
+      - schema:
+          type: string
+        name: countryCode
+        in: path
+        description: 2-letter ISO code
+  '/getSchoolsByStateID/{stateID}':
+    get:
+      summary: Get Schools By State ID
+      tags:
+        - retrieval
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/return-object.v1.yaml
+      description: Retrieve a list of school IDs and names in a state ID or country region from a given state ID.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: PASETO Token
+          required: true
+    parameters:
+      - schema:
+          type: integer
+        name: stateID
+        in: path
+        required: true
+        description: Belouga DB ID
+  '/getDistrictsByStateID/{stateID}':
+    get:
+      summary: Get Districts By State ID
+      tags:
+        - retrieval
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/return-object.v1.yaml
+      description: Retrieve a list of district IDs and names in a state ID or country region from a given state ID.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: PASETO Token
+          required: true
+    parameters:
+      - schema:
+          type: integer
+        in: path
+        required: true
+        name: stateID
+        description: Belouga DB ID
+  '/checkUsername/{username}':
+    parameters:
+      - type: string
+        name: username
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ''
+    get:
+      summary: Check Username
+      tags:
+        - validation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/return-object.v1.yaml
+      description: Validate and check that username is unique in Belouga database
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: PASETO Token
+          required: true
+  '/checkEmail/{email}':
+    get:
+      summary: Check Email
+      tags:
+        - validation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/return-object.v1.yaml
+      description: Validate and check that email is unique in Belouga database.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: PASETO Token
+          required: true
+    parameters:
+      - schema:
+          type: string
+        name: email
+        in: path
+        required: true
+        description: Email address
+  /registerTeacher:
+    get:
+      summary: Register Teacher
+      tags:
+        - registration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/return-object.v1.yaml
+      description: Register Teacher on Belouga
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: PASETO Token
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./models/user.v1.yaml
+        description: Do not actually send this object in the body. Embed it inside the claims field of the PASETO token.
+components:
+  schemas: {}
+  securitySchemes:
+    API Key - 1:
+      type: http
+      scheme: Bearer
+      description: Paseto Token
