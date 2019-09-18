@@ -1,4 +1,4 @@
-title: Teacher User Object
+title: Teacher Register User Object
 description: User object submitted for teacher registration
 type: object
 properties:

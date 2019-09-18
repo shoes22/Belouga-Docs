@@ -195,6 +195,27 @@ paths:
             schema:
               $ref: ./models/user.v1.yaml
         description: Do not actually send this object in the body. Embed it inside the claims field of the PASETO token.
+  /login:
+    get:
+      summary: login
+      tags: []
+      description: Login to Belouga and redirect to logged in home page
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: PASETO Token
+          required: true
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./models/login-object.v1.yaml
+        description: Do not actually send this object in the body. Embed it inside the claims field of the PASETO token.
 components:
   schemas: {}
   securitySchemes:
