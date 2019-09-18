@@ -198,7 +198,6 @@ paths:
   /login:
     get:
       summary: login
-      tags: []
       description: Login to Belouga and redirect to logged in home page
       parameters:
         - schema:
@@ -216,6 +215,8 @@ paths:
             schema:
               $ref: ./models/login-object.v1.yaml
         description: Do not actually send this object in the body. Embed it inside the claims field of the PASETO token.
+      tags:
+        - Login
 components:
   schemas: {}
   securitySchemes:
