@@ -5,3 +5,4 @@ properties:
     type: string
   password:
     type: string
+description: "Login object, also of type 'user'"

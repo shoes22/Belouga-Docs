@@ -1,5 +1,5 @@
 title: Teacher Register User Object
-description: User object submitted for teacher registration
+description: "Object submitted for teacher registration with key 'user'"
 type: object
 properties:
   type:

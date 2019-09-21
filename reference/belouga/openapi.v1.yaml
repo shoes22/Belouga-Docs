@@ -209,6 +209,11 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+                description: 'Returns a complete HTML page, which is the homepage after the user is logged in'
       requestBody:
         content:
           application/json:
