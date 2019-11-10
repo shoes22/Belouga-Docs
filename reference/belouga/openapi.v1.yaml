@@ -222,8 +222,131 @@ paths:
         description: Do not actually send this object in the body. Embed it inside the claims field of the PASETO token.
       tags:
         - Login
+  /registerStudent:
+    get:
+      summary: Register Student
+      tags:
+        - registration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/return-object.v1.yaml
+      description: Register Student on Belouga
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: PASETO Token
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student-User'
+        description: Do not actually send this object in the body. Embed it inside the claims field of the PASETO token.
+  /registerClassroom:
+    get:
+      summary: Register Classroom
+      tags:
+        - registration
+      responses:
+        '200':
+          description: 'On successful submission, will return the classroom ID that was just created.'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/return-object.v1.yaml
+      description: Register Classroom on Belouga
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: PASETO Token
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Classroom-Object'
+        description: Do not actually send this object in the body. Embed it inside the claims field of the PASETO token.
 components:
-  schemas: {}
+  schemas:
+    Student-User:
+      title: Student-User
+      type: object
+      description: "Object submitted for student registration with key 'user'"
+      properties:
+        type:
+          type: string
+          description: 'This is a string that determines whether this is a student or teacher account. Only valid value right now is "Student".'
+        student-first-name:
+          type: string
+        student-last-name:
+          type: string
+        student-username:
+          type: string
+          description: Must be unique
+        student-password:
+          type: string
+          description: 'The plaintext unencrypted password. Plaintext here because we will be encrypting the password in our own database, and this data is transmitted encrypted to our servers.'
+        student-confirm-password:
+          type: string
+          description: 'It is expected that you will check this field client-side before submitting. Required on registration form, but not required to be submitted.'
+        student-birthday:
+          type: string
+          description: 'Semi-required field. Field should be submitted in YYYY-MM-DD format. If this field is not provided during registraiton, it will be asked upon student login.'
+        classroomId:
+          type: string
+          description: 'Semi-required field. If not provided during registration, students will be asked to register into a classroom (with verification images) upon login.'
+      required:
+        - type
+        - student-first-name
+        - student-last-name
+        - student-username
+        - student-password
+    Classroom-Object:
+      title: Classroom-Object
+      type: object
+      description: "Object submitted for classroom registration with key 'classroom'"
+      properties:
+        school_id:
+          type: string
+          description: The school the classroom belongs to. Must be an existing school in our databse.
+        name:
+          type: string
+          description: Name of the classroom
+        description:
+          type: string
+          description: Description of the classroom
+        classroom_verification_image_one:
+          $ref: '#/components/schemas/Classroom-Verification-Icons'
+        classroom_verification_image_two:
+          $ref: '#/components/schemas/Classroom-Verification-Icons'
+      required:
+        - school_id
+        - name
+        - description
+        - classroom_verification_image_one
+        - classroom_verification_image_two
+    Classroom-Verification-Icons:
+      oneOf:
+        - description: '1: Pencil'
+        - description: |
+            2: Ball
+        - description: '3: Chalkboard'
+        - description: '4: School'
+        - description: '5: Clock'
+        - description: '6: Notebook'
+        - description: '7: Computer'
+        - description: '8: Backpack'
+        - description: '9: Globe'
+      type: integer
+      description: For when students register to classroom in platform.
   securitySchemes:
     API Key - 1:
       type: http
