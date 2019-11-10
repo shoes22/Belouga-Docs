@@ -317,6 +317,9 @@ components:
         school_id:
           type: string
           description: The school the classroom belongs to. Must be an existing school in our databse.
+        teacher_id:
+          type: string
+          description: The teacher the classroom belongs to. Must be an existing teacher in our databse.
         name:
           type: string
           description: Name of the classroom
@@ -333,6 +336,7 @@ components:
         - description
         - classroom_verification_image_one
         - classroom_verification_image_two
+        - teacher_id
     Classroom-Verification-Icons:
       oneOf:
         - description: '1: Pencil'
